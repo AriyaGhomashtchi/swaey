@@ -11,7 +11,7 @@ class MealViewModel: ObservableObject {
     @Published var mealList = [Meal]()
     
     func fetchMeal() async {
-        var counter = 1
+        var counter = 0
         while counter < 2 {
             
             
