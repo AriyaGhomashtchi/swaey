@@ -8,19 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var viewModel : SwaeyViewModel
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+      TestView()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(SwaeyViewModel())
     }
 }

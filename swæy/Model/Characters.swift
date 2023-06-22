@@ -9,13 +9,13 @@ import Foundation
 
 struct MealsResponse : Codable{
 
-    let results : [Meal]
+    let meals : [Meal]
 }
 
 // Meal JSON ist einfacher zum lesen gewesen als die Person.
 
-struct Meal: Codable, Identifiable {
-    var id = UUID()
+struct Meal: Codable, Hashable {
+    
     var idMeal: String
     var strMeal: String
     var strMealThumb: String

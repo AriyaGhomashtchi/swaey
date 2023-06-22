@@ -6,8 +6,8 @@
 //
 
 import Foundation
-
-class MealViewModel: ObservableObject {
+@MainActor
+class SwaeyViewModel: ObservableObject {
     @Published var mealList = [Meal]()
     
     func fetchMeal() async {
@@ -17,7 +17,7 @@ class MealViewModel: ObservableObject {
             
             do {
                 mealList = try await
-                fetchMealResponse().results
+                fetchMealResponse().meals
                 counter += 1
             } catch{
                 print(error)
@@ -26,7 +26,7 @@ class MealViewModel: ObservableObject {
     }
     
     func fetchMealResponse() async throws -> MealsResponse{
-        guard let url = URL(string: "www.themealdb.com/api/json/v1/1/random.php") else {
+        guard let url = URL(string: "https://www.themealdb.com/api/json/v1/1/random.php") else {
             throw MealError.invalidURL
             
         }
@@ -38,6 +38,7 @@ class MealViewModel: ObservableObject {
         guard let response = response as?
                 HTTPURLResponse, response.statusCode ==
                 200 else {
+            print(response)
             throw MealError.invalidResponse
         }
         do {
@@ -46,6 +47,7 @@ class MealViewModel: ObservableObject {
             decoder.decode(MealsResponse
                 .self, from: data)
         } catch {
+            print(error.localizedDescription)
             throw MealError.invalidData
         }
     }
